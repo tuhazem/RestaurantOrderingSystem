@@ -16,6 +16,10 @@ namespace RestaurantSystem.Infrastructure.Persistence
 
 
         public DbSet<MenuItem> MenuItems => Set<MenuItem>();
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
        
 
     }

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Azure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Application.DTOs;
 using RestaurantSystem.Application.Services;
@@ -47,13 +49,13 @@ namespace RestaurantSystem.API.Controllers
 
             var entity = mapper.Map<MenuItem>(dto);
             await service.AddItem(entity);
-            var resdto = mapper.Map < MenuItemDTO >(entity);
+            var resdto = mapper.Map <MenuItemDTO >(entity);
             return CreatedAtAction(nameof(GetById),new {id = entity.Id } , resdto);
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItem(int id , MenuItemDTO dto) {
+        public async Task<IActionResult> UpdateItem(int id , UpdateMenuItemDTO dto) {
 
             var item = await service.GetById(id);
             if (item == null)
@@ -64,6 +66,32 @@ namespace RestaurantSystem.API.Controllers
             await service.Update(item);
             return NoContent();
         }
+
+
+        [HttpPatch("pathc/{id:int}")]
+        public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<PatchMenuItemDTO> patch) {
+
+            if (patch == null) { 
+                return BadRequest();
+            }
+
+            var item = await service.GetById(id);
+            if (item == null) {
+                return NotFound();
+            }
+
+            var dto = mapper.Map<PatchMenuItemDTO>(item);
+            patch.ApplyTo(dto, (Microsoft.AspNetCore.JsonPatch.Adapters.IObjectAdapter)ModelState);
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+        
+            mapper.Map(dto, item);
+            await service.Update(item);
+            return NoContent();
+
+        }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(int id) { 

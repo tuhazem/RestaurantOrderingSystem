@@ -27,7 +27,7 @@ namespace RestaurantSystem.Infrastructure.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var item = await dbcontext.MenuItems.FirstOrDefaultAsync(x => x.Id == id);
+            var item = await dbcontext.MenuItems.Include(m=>m.Category).FirstOrDefaultAsync(x => x.Id == id);
             if (item != null)
             {
                 dbcontext.MenuItems.Remove(item);
@@ -37,7 +37,7 @@ namespace RestaurantSystem.Infrastructure.Repositories
 
         public async Task<IEnumerable<MenuItem>> GetAllAsync()
         {
-            return await dbcontext.MenuItems.ToListAsync();
+            return await dbcontext.MenuItems.Include(m=> m.Category).ToListAsync();
         }
 
         public async Task<MenuItem?> GetByIdAsync(int id)

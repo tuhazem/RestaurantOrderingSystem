@@ -13,8 +13,13 @@ namespace RestaurantSystem.Application.MappingProfiles
     {
         public MenuItemProfile()
         {
-            CreateMap<MenuItem, MenuItemDTO>().ReverseMap();
+            
+            CreateMap<MenuItem, MenuItemDTO>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+
             CreateMap<CreateMenuItemDTO, MenuItem>();
+            CreateMap<PatchMenuItemDTO, MenuItem>();
+            CreateMap<UpdateMenuItemDTO, MenuItem>();
         }
     }
 }

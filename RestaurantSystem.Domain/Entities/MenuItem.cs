@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,12 @@ namespace RestaurantSystem.Domain.Entities
         public string Name { get; set; } = default!;
         public decimal Price { get; set; }
         public string? Description { get; set; }
-        public bool IsAvailable { get; set; } = true; 
+        public bool IsAvailable { get; set; } = true;
+
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+
+        public Category? Category { get; set; }
 
     }
 }
