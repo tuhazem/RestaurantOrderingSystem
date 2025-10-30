@@ -28,7 +28,7 @@ namespace RestaurantSystem.Application.DTOs
 
     public class CreateOrderDTO
     {
-        public int CustomerId { get; set; }
+        //public int CustomerId { get; set; }
         public List<CreateOrderItemDTO> Items { get; set; } = new();
     }
 
@@ -36,7 +36,7 @@ namespace RestaurantSystem.Application.DTOs
     {
         public int MenuItemId { get; set; }
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
+        //public decimal Price { get; set; }
     }
 
     public class UpdateOrderDTO

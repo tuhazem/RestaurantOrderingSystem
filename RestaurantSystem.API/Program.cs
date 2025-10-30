@@ -16,6 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddAutoMapper(typeof(CategoryProfile));
 builder.Services.AddAutoMapper(typeof(MenuItemProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(OrderProfile).Assembly);
+
 //builder.Services.AddControllers().AddNewtonsoftJson();
 
 

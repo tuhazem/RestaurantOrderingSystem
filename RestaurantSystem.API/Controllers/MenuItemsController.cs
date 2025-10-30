@@ -15,11 +15,13 @@ namespace RestaurantSystem.API.Controllers
     {
         private readonly MenuItemService service;
         private readonly IMapper mapper;
+        private readonly CategoryService categoryService;
 
-        public MenuItemsController(MenuItemService service , IMapper mapper)
+        public MenuItemsController(MenuItemService service , IMapper mapper , CategoryService categoryService)
         {
             this.service = service;
             this.mapper = mapper;
+            this.categoryService = categoryService;
         }
 
         [HttpGet]
@@ -48,6 +50,11 @@ namespace RestaurantSystem.API.Controllers
         public async Task<IActionResult> AddNewItem(CreateMenuItemDTO dto) {
 
             var entity = mapper.Map<MenuItem>(dto);
+            var category = await categoryService.GetById(dto.CategoryId);
+            if (category == null)
+            {
+                return BadRequest("Invalid CategoryId");
+            }
             await service.AddItem(entity);
             var resdto = mapper.Map <MenuItemDTO >(entity);
             return CreatedAtAction(nameof(GetById),new {id = entity.Id } , resdto);

@@ -13,16 +13,24 @@ namespace RestaurantSystem.Application.MappingProfiles
     {
         public OrderProfile()
         {
-            
-            CreateMap<Order, OrderDTO>();
-            CreateMap<OrderItem, OrderItemDTO>()
-                .ForMember(dest => dest.MenuItemName, opt => opt.MapFrom(src => src.MenuItem != null ? src.MenuItem.Name : null));
+
+            CreateMap<Order, OrderDTO>()
+               .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems));
 
             
-            CreateMap<CreateOrderDTO, Order>();
+            CreateMap<OrderItem, OrderItemDTO>()
+                .ForMember(dest => dest.MenuItemName,
+                           opt => opt.MapFrom(src => src.MenuItem != null ? src.MenuItem.Name : null));
+
+            
+            CreateMap<CreateOrderDTO, Order>()
+                .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.Items));
+
             CreateMap<CreateOrderItemDTO, OrderItem>();
 
-            CreateMap<UpdateOrderDTO, Order>();
+            
+            CreateMap<UpdateOrderDTO, Order>()
+                .ForMember(dest => dest.OrderItems, opt => opt.Ignore());
         }
     }
 }

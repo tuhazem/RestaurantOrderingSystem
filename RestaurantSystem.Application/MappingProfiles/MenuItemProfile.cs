@@ -20,6 +20,7 @@ namespace RestaurantSystem.Application.MappingProfiles
             CreateMap<CreateMenuItemDTO, MenuItem>();
             CreateMap<PatchMenuItemDTO, MenuItem>();
             CreateMap<UpdateMenuItemDTO, MenuItem>();
+
         }
     }
 }
