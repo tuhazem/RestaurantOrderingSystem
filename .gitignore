@@ -67,6 +67,7 @@ node_modules/
 # Configuration files (hide sensitive info)
 appsettings.Development.json
 appsettings.*.json
+appsettings.json
 appsettings.Local.json
 
 # Secrets & environment files
