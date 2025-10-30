@@ -65,11 +65,8 @@ wwwroot/
 node_modules/
 
 # Configuration files (hide sensitive info)
-appsettings.Development.json
-appsettings.*.json
 appsettings.json
-appsettings.Local.json
-RestaurantSystem.API/appsettings.json
+appsettings.*.json
 
 # Secrets & environment files
 secrets.json
