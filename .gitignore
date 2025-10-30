@@ -69,6 +69,7 @@ appsettings.Development.json
 appsettings.*.json
 appsettings.json
 appsettings.Local.json
+RestaurantSystem.API/appsettings.json
 
 # Secrets & environment files
 secrets.json
