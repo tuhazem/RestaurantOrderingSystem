@@ -19,10 +19,11 @@ namespace RestaurantSystem.Infrastructure.Repositories
             context = _context;
         }
 
-        public async Task AddAsync(OrderItem item)
+        public async Task<OrderItem> AddAsync(OrderItem item)
         {
             await context.OrderItems.AddAsync(item);
             await context.SaveChangesAsync();
+            return item;
         }
 
         public async Task DeleteAsync(int id)

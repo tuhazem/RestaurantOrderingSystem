@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace RestaurantSystem.Domain.Interfaces
 {
-    public interface IOrderItemRepository
+    public interface ICustomerRepository
     {
-        Task<IEnumerable<OrderItem>> GetAllAsync();
-        Task<OrderItem?> GetByIdAsync(int id);
-        Task<OrderItem> AddAsync(OrderItem item);
-        Task UpdateAsync(OrderItem item);
+        Task<IEnumerable<Customer>> GetAllAsync();
+        Task<Customer?> GetByIdAsync(int id);
+        Task<Customer?> AddAsync(Customer customer);
+        Task UpdateAsync(Customer customer);
         Task DeleteAsync(int id);
     }
 }

@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddAutoMapper(typeof(CategoryProfile));
 builder.Services.AddAutoMapper(typeof(MenuItemProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(OrderProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 //builder.Services.AddControllers().AddNewtonsoftJson();
 
@@ -32,6 +33,9 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<OrderService>();
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<CustomerService>();
 
 var app = builder.Build();
 

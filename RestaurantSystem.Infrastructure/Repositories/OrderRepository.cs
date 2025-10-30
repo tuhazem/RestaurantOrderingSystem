@@ -19,10 +19,11 @@ namespace RestaurantSystem.Infrastructure.Repositories
             context = _context;
         }
 
-        public async Task AddAsync(Order order)
+        public async Task<Order> AddAsync(Order order)
         {
             await context.Orders.AddAsync(order);
             await context.SaveChangesAsync();
+            return order;
         }
 
         public async Task DeleteAsunc(int id)
@@ -37,14 +38,16 @@ namespace RestaurantSystem.Infrastructure.Repositories
         public async Task<IEnumerable<Order>> GetAllAsync()
         {
             return await context.Orders
+                .Include(c=> c.Customer)
                 .Include(oi => oi.OrderItems)
                 .ThenInclude(o => o.MenuItem)
                 .ToListAsync();
         }
 
-        public async Task<Order> GetByIdAsync(int id)
+        public async Task<Order?> GetByIdAsync(int id)
         {
             return await context.Orders
+                .Include(c => c.Customer)
                 .Include(oi => oi.OrderItems)
                 .ThenInclude(o => o.MenuItem)
                 .FirstOrDefaultAsync(a => a.Id == id);

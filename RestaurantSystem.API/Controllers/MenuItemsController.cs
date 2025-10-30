@@ -61,7 +61,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateItem(int id , UpdateMenuItemDTO dto) {
 
             var item = await service.GetById(id);
@@ -75,7 +75,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
 
-        [HttpPatch("pathc/{id:int}")]
+        [HttpPatch("{id:int}")]
         public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<PatchMenuItemDTO> patch) {
 
             if (patch == null) { 
@@ -100,7 +100,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteItem(int id) { 
         
             var item = await service.GetById(id);

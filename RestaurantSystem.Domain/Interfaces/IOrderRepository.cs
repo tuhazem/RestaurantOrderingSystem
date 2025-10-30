@@ -10,8 +10,8 @@ namespace RestaurantSystem.Domain.Interfaces
     public interface IOrderRepository
     {
         Task<IEnumerable<Order>> GetAllAsync();
-        Task<Order> GetByIdAsync(int id);
-        Task AddAsync(Order order);
+        Task<Order?> GetByIdAsync(int id);
+        Task<Order?> AddAsync(Order order);
         Task DeleteAsunc(int id);
         Task UpdateAsync(Order order);
 

@@ -20,7 +20,7 @@ namespace RestaurantSystem.Application.Services
 
         public Task<IEnumerable<Order>> GetAllAsync() => _orderRepo.GetAllAsync();
         public Task<Order?> GetByIdAsync(int id) => _orderRepo.GetByIdAsync(id);
-        public Task AddAsync(Order order) => _orderRepo.AddAsync(order);
+        public Task<Order?> AddAsync(Order order) =>  _orderRepo.AddAsync(order); 
         public Task UpdateAsync(Order order) => _orderRepo.UpdateAsync(order);
         public Task DeleteAsync(int id) => _orderRepo.DeleteAsunc(id);
 

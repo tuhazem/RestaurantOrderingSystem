@@ -14,12 +14,16 @@ namespace RestaurantSystem.API.Controllers
         private readonly OrderService service;
         private readonly IMapper mapper;
         private readonly MenuItemService menuItemService;
+        private readonly CustomerService customerService;
 
-        public OrdersController(OrderService service, IMapper mapper , MenuItemService menuItemService)
+        public OrdersController(OrderService service, IMapper mapper ,
+            MenuItemService menuItemService , 
+            CustomerService customerService)
         {
             this.service = service;
             this.mapper = mapper;
             this.menuItemService = menuItemService;
+            this.customerService = customerService;
         }
 
         [HttpGet]
@@ -44,8 +48,16 @@ namespace RestaurantSystem.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateOrderDTO dto) {
 
+            if (dto.CustomerId == null)
+                return BadRequest("CustomerId is required");
+
+            var customer = await customerService.GetByIdAsync(dto.CustomerId.Value);
+
+            if ( customer == null) return BadRequest($"this customer is not Found {dto.CustomerId}");
+
             var entity = mapper.Map<Order>(dto);
             decimal total = 0;
+
 
             foreach (var item in entity.OrderItems) {
 

@@ -31,6 +31,10 @@ namespace RestaurantSystem.Application.MappingProfiles
             
             CreateMap<UpdateOrderDTO, Order>()
                 .ForMember(dest => dest.OrderItems, opt => opt.Ignore());
+
+            CreateMap<Order, OrderDTO>()
+    .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
+    .ReverseMap();
         }
     }
 }
