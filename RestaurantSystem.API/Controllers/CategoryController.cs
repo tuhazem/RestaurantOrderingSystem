@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Application.DTOs;
@@ -21,6 +22,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetAll() {
 
             var item = await service.GetAll();
@@ -30,6 +32,8 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> GetById(int id) {
 
             var item = await service.GetById(id);
