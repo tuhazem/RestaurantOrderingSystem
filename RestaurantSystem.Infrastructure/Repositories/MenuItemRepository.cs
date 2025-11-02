@@ -42,7 +42,7 @@ namespace RestaurantSystem.Infrastructure.Repositories
 
         public async Task<MenuItem?> GetByIdAsync(int id)
         {
-            return await dbcontext.MenuItems.FirstOrDefaultAsync(a => a.Id == id);
+            return await dbcontext.MenuItems.Include(m=> m.Category).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task UpdateAsync(MenuItem item)
@@ -50,5 +50,11 @@ namespace RestaurantSystem.Infrastructure.Repositories
             dbcontext.MenuItems.Update(item);
             await dbcontext.SaveChangesAsync();
         }
+
+        public async Task<bool> CategoryExistsAsync(int categoryId)
+        {
+            return await dbcontext.Categories.AnyAsync(c => c.Id == categoryId);
+        }
+
     }
 }

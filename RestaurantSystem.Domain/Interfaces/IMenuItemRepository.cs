@@ -15,6 +15,7 @@ namespace RestaurantSystem.Domain.Interfaces
         Task AddAsync(MenuItem item);
         Task DeleteAsync(int id);
         Task UpdateAsync(MenuItem item);
+        Task<bool> CategoryExistsAsync(int categoryId);
 
 
     }

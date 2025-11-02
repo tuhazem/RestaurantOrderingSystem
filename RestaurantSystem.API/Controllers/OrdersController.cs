@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Application.DTOs;
@@ -27,6 +28,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer,Admin")]
         public async Task<IActionResult> GetAll() {
 
             var item = await service.GetAllAsync();
@@ -37,6 +39,7 @@ namespace RestaurantSystem.API.Controllers
 
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Customer,Admin")]
         public async Task<IActionResult> GetById(int id) {
 
             var order = await service.GetByIdAsync(id);
@@ -46,6 +49,8 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Create(CreateOrderDTO dto) {
 
             if (dto.CustomerId == null)
@@ -77,6 +82,8 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int id, UpdateOrderDTO dto)
         {
 
@@ -89,6 +96,8 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Delete(int id) { 
         
             var order = await service.GetByIdAsync(id);

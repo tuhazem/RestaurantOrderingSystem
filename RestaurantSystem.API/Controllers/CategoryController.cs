@@ -22,7 +22,8 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer,Admin")]
+        
         public async Task<IActionResult> GetAll() {
 
             var item = await service.GetAll();
@@ -32,8 +33,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [Authorize(Roles = "Admin")]
-
+        [Authorize(Roles = "Customer,Admin")]
         public async Task<IActionResult> GetById(int id) {
 
             var item = await service.GetById(id);
@@ -45,7 +45,9 @@ namespace RestaurantSystem.API.Controllers
         }
 
 
+        
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNew(CreateCategoryDTO dto) {
 
             var category = mapper.Map<Category>(dto);
@@ -56,6 +58,7 @@ namespace RestaurantSystem.API.Controllers
 
 
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, CreateCategoryDTO dto)
         {
 
@@ -70,6 +73,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id) {
             var category = await service.GetById(id);
             if (category == null) {

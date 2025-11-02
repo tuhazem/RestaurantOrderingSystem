@@ -1,18 +1,19 @@
-using RestaurantSystem.Infrastructure;
-using Microsoft.OpenApi.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using RestaurantSystem.API.Middlewares;
+using RestaurantSystem.Application.Interfaces;
 using RestaurantSystem.Application.MappingProfiles;
-using RestaurantSystem.Domain.Interfaces;
-using RestaurantSystem.Infrastructure.Repositories;
 using RestaurantSystem.Application.Services;
 using RestaurantSystem.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+using RestaurantSystem.Domain.Interfaces;
+using RestaurantSystem.Infrastructure;
 using RestaurantSystem.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using RestaurantSystem.Application.Interfaces;
+using RestaurantSystem.Infrastructure.Repositories;
 using RestaurantSystem.Infrastructure.Seeders;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddAutoMapper(typeof(CategoryProfile));
 builder.Services.AddAutoMapper(typeof(MenuItemProfile).Assembly);
@@ -136,6 +136,9 @@ using (var scope = app.Services.CreateScope()) {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

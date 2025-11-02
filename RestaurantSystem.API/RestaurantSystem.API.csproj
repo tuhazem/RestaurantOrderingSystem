@@ -31,8 +31,4 @@
     <ProjectReference Include="..\RestaurantSystem.Application\RestaurantSystem.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Middlewares\" />
-  </ItemGroup>
-
 </Project>
