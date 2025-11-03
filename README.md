@@ -129,7 +129,7 @@ Visual Studio 2022 or VS Code
 
 Clone the repository
 
-git clone https://github.com/YourUsername/RestaurantSystem-API.git
+git clone https://github.com/tuhazem/RestaurantOrderingSystem.git
 cd RestaurantSystem-API
 
 
