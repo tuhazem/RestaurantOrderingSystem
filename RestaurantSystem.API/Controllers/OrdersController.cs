@@ -109,6 +109,7 @@ namespace RestaurantSystem.API.Controllers
         }
 
         [HttpPost("{orderId:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Pay(int orderId , [FromBody] string method)
         {
 
