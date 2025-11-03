@@ -24,5 +24,14 @@ namespace RestaurantSystem.Application.Services
         public Task UpdateAsync(Order order) => _orderRepo.UpdateAsync(order);
         public Task DeleteAsync(int id) => _orderRepo.DeleteAsunc(id);
 
+        public async Task<bool> ProcessPaymentAsync(int orderId , string method) { 
+            var order = await _orderRepo.GetByIdAsync(orderId);
+            if (order == null) return false;
+
+            order.PaymentMethod = method;
+            order.PaymentStatus = "Paid";
+            await _orderRepo.UpdateAsync(order);
+            return true;
+        }
     }
 }

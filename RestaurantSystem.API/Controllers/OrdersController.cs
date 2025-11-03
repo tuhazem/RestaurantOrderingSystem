@@ -76,6 +76,8 @@ namespace RestaurantSystem.API.Controllers
             
 
             entity.TotalPrice = total;
+            entity.PaymentMethod = dto.PaymentMethod;
+            entity.OrderDate = DateTime.Now;
             await service.AddAsync(entity);
             var resdto = mapper.Map<OrderDTO>(entity);
             return CreatedAtAction(nameof(GetById), new { id = entity.Id }, resdto);
@@ -104,9 +106,23 @@ namespace RestaurantSystem.API.Controllers
             if(order == null) { return NotFound(); }
             await service.DeleteAsync(id);
             return NoContent();
-        
         }
 
+        [HttpPost("{orderId:int}")]
+        public async Task<IActionResult> Pay(int orderId , [FromBody] string method)
+        {
+
+            var succ = await service.ProcessPaymentAsync(orderId , method);
+            if (!succ) return NotFound(new { message = "order not found" });
+
+            return Ok(new {
+            
+                message = $"Payment successful using {method}",
+                Status = "Paid"
+
+            });
+
+        }
 
 
 

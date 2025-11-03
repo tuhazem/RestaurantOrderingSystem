@@ -34,6 +34,10 @@ namespace RestaurantSystem.Application.DTOs
 
         public string? CustomerName { get; set; }
 
+        public string PaymentStatus { get; set; }
+
+        public string PaymentMethod { get; set; }
+
         public List<OrderItemDTO> OrderItems { get; set; } = new();
     }
 
@@ -42,6 +46,8 @@ namespace RestaurantSystem.Application.DTOs
 
         
         public int? CustomerId { get; set; }
+
+        public string PaymentMethod { get; set; }
 
         [Required]
         [MinLength(1, ErrorMessage = "Order must contain at least one item")]
@@ -55,7 +61,7 @@ namespace RestaurantSystem.Application.DTOs
 
 
         [Required]
-        [MinLength(1, ErrorMessage = "Order must contain at least one item")]
+        //[MinLength(1, ErrorMessage = "Order must contain at least one item")]
         public int Quantity { get; set; }
         //public decimal Price { get; set; }
     }

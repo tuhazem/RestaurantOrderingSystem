@@ -18,6 +18,10 @@ namespace RestaurantSystem.Domain.Entities
         public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
 
+        public string PaymentStatus { get; set; } = "Pending";
+
+        public string PaymentMethod { get; set; } = "Cash"; 
+
         public List<OrderItem> OrderItems { get; set; } = new();
 
     }
